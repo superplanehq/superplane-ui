@@ -2,10 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ChevronRightIcon, Loader2Icon } from 'lucide-react';
 import { IconGitBranch } from '@tabler/icons-react';
 
-import { Button } from './index';
+import { Button } from './button';
 
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: 'components/Button',
   component: Button,
   tags: ['autodocs'],
   argTypes: {

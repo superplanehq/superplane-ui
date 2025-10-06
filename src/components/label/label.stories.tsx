@@ -7,27 +7,34 @@ const meta: Meta<typeof Label> = {
   title: 'components/Label',
   component: Label,
   tags: ['autodocs'],
+  argTypes: {
+    children: {
+      control: { type: 'text' },
+    },
+  },
   parameters: {
     layout: 'centered',
   },
 };
 
 export default meta;
+type Story = StoryObj<typeof Label>;
 
-export const Default: StoryObj<typeof Label> = {
+export const Default: Story = {
   args: {
     htmlFor: 'email',
     children: 'Your email address',
   },
 };
 
-export const WithCheckbox: StoryObj<typeof Label> = {
+export const WithCheckbox: Story = {
   render: (args) => (
     <div className="flex items-center space-x-2">
       <Checkbox id="terms" />
-      <Label {...args} htmlFor="terms">
-        Accept terms and conditions
-      </Label>
+      <Label {...args} htmlFor="terms" />
     </div>
   ),
+  args: {
+    children: 'Accept terms and conditions',
+  },
 };

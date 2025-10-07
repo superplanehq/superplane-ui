@@ -9,7 +9,7 @@ import {
 } from "./index"
 
 const meta = {
-  title: "components/Tooltip",
+  title: "shadcn Primitives/Tooltip",
   component: TooltipContent,
   parameters: {
     layout: "centered",
@@ -37,10 +37,16 @@ const meta = {
     children: "Add to library",
   },
   render: (args) => (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={150}>
       <Tooltip>
-        <TooltipTrigger aria-label="Add">
-          <Plus className="h-4 w-4" />
+        <TooltipTrigger asChild>
+          <button
+            type="button"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background text-foreground shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+          >
+            <Plus className="h-4 w-4" />
+            <span className="sr-only">Add</span>
+          </button>
         </TooltipTrigger>
         <TooltipContent {...args} />
       </Tooltip>

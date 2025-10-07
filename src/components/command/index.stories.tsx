@@ -22,7 +22,7 @@ import {
 } from './index';
 
 const meta: Meta<typeof Command> = {
-  title: 'components/Command',
+  title: 'shadcn Primitives/Command',
   component: Command,
   tags: ['autodocs'],
   parameters: {

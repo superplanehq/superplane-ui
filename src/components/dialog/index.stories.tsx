@@ -15,7 +15,7 @@ import {
 } from './index';
 
 const meta: Meta<typeof Dialog> = {
-  title: 'components/Dialog',
+  title: 'shadcn Primitives/Dialog',
   component: Dialog,
   tags: ['autodocs'],
   parameters: {

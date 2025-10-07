@@ -20,7 +20,7 @@ import {
 } from "./index"
 
 const meta = {
-  title: "components/DropdownMenu",
+  title: "shadcn Primitives/DropdownMenu",
   component: DropdownMenu,
   parameters: {
     layout: "centered",

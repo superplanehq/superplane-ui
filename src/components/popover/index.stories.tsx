@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 import { Popover, PopoverContent, PopoverTrigger } from "./index"
 
 const meta = {
-  title: "components/Popover",
+  title: "shadcn Primitives/Popover",
   component: Popover,
   parameters: {
     layout: "centered",

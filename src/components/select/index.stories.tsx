@@ -16,7 +16,7 @@ type SelectStoryArgs = React.ComponentProps<typeof Select> & {
 }
 
 const meta = {
-  title: "components/Select",
+  title: "shadcn Primitives/Select",
   component: Select,
   parameters: {
     layout: "centered",

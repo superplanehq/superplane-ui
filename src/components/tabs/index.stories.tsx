@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./index"
 type TabsStoryArgs = React.ComponentProps<typeof Tabs>
 
 const meta = {
-  title: "components/Tabs",
+  title: "shadcn Primitives/Tabs",
   component: Tabs,
   parameters: {
     layout: "centered",

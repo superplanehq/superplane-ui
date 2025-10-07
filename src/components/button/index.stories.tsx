@@ -8,7 +8,7 @@ type IconVariant = "none" | "withIcon" | "iconOnly"
 type ButtonStoryArgs = ButtonProps & { iconVariant?: IconVariant }
 
 const meta = {
-  title: "components/Button",
+  title: "shadcn Primitives/Button",
   component: Button,
   parameters: {
     layout: "centered",

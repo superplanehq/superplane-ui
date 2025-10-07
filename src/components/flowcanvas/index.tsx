@@ -1,5 +1,5 @@
 import * as React from "react"
-import ReactFlow, { Background, BackgroundVariant } from "reactflow"
+import ReactFlow, { Background, BackgroundVariant, Controls, MiniMap } from "reactflow"
 
 import "reactflow/dist/style.css"
 
@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils"
 type ReactFlowCanvasProps = React.ComponentProps<typeof ReactFlow> & {
   containerClassName?: string
   containerStyle?: React.CSSProperties
+  showControls?: boolean
+  showMiniMap?: boolean
 }
 
 const ReactFlowCanvas: React.FC<ReactFlowCanvasProps> = ({
@@ -17,6 +19,8 @@ const ReactFlowCanvas: React.FC<ReactFlowCanvasProps> = ({
   edges,
   fitView = true,
   children,
+  showControls = false,
+  showMiniMap = false,
   ...props
 }) => {
   const safeNodes = React.useMemo(() => nodes ?? [], [nodes])
@@ -30,6 +34,8 @@ const ReactFlowCanvas: React.FC<ReactFlowCanvasProps> = ({
       <ReactFlow nodes={safeNodes} edges={safeEdges} fitView={fitView} {...props}>
         {children}
         <Background variant={BackgroundVariant.Dots} gap={24} size={1} />
+        {showMiniMap ? <MiniMap pannable zoomable /> : null}
+        {showControls ? <Controls /> : null}
       </ReactFlow>
     </div>
   )

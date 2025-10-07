@@ -23,6 +23,14 @@ const meta = {
     edges: {
       control: { disable: true },
     },
+    showControls: {
+      control: { type: "boolean" },
+      table: { category: "Display" },
+    },
+    showMiniMap: {
+      control: { type: "boolean" },
+      table: { category: "Display" },
+    },
   },
 } satisfies Meta<typeof ReactFlowCanvas>
 
@@ -36,6 +44,8 @@ export const Default: Story = {
     fitView: true,
     nodes: [],
     edges: [],
+    showControls: true,
+    showMiniMap: true,
   },
   render: (args) => <ReactFlowCanvas {...args} />,
 }

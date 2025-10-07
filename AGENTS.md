@@ -4,9 +4,6 @@ This document outlines the guidelines for AI agents contributing to the Superpla
 
 ## Component Structure
 
-When creating or modifying components, follow the structure used in Operately's `turboui` repository:
-
-- **Component Naming**: Component files and directories should be lowercase (e.g., `button/button.tsx`).
 - **Storybook Stories**: Story files should be named `[component-name].stories.tsx` (e.g., `button.stories.tsx`).
 - **Storybook Titles**: Story titles should be in the format `components/[Component Name]` (e.g., `components/Button`).
 
@@ -19,7 +16,7 @@ When creating or modifying components, follow the structure used in Operately's 
 
 ## Code Style
 
-- **Imports**: Use relative paths for imports between components (e.g., `../button/button`).
+- **Imports**: Use relative paths for imports between components (e.g., `../button/index.tsx`).
 - **Clarity and Conciseness**: Write clear and concise code. Add comments where necessary to explain complex logic.
 
 By following these guidelines, we can ensure that AI agents are effective and valuable contributors to this project.

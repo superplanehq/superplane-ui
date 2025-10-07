@@ -19,7 +19,7 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from './command';
+} from './index';
 
 const meta: Meta<typeof Command> = {
   title: 'components/Command',

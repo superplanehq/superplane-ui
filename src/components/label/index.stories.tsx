@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Checkbox } from '../checkbox/checkbox';
-import { Label } from './label';
+import { Checkbox } from '../checkbox';
+import { Label } from './index';
 
 const meta: Meta<typeof Label> = {
   title: 'components/Label',

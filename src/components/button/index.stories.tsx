@@ -2,7 +2,7 @@ import { Fragment } from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { ChevronRight, Loader2, Mail, Settings, Trash2 } from "lucide-react"
 
-import { Button, type ButtonProps } from "./button"
+import { Button, type ButtonProps } from "./index"
 
 type IconVariant = "none" | "withIcon" | "iconOnly"
 type ButtonStoryArgs = ButtonProps & { iconVariant?: IconVariant }

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { ReactFlowCanvas } from "./index"
+import { Canvas } from "./index"
 
 const meta = {
-  title: "components/ReactFlowCanvas",
-  component: ReactFlowCanvas,
+  title: "components/Canvas",
+  component: Canvas,
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
@@ -32,11 +32,11 @@ const meta = {
       table: { category: "Display" },
     },
   },
-} satisfies Meta<typeof ReactFlowCanvas>
+} satisfies Meta<typeof Canvas>
 
 export default meta
 
-type Story = StoryObj<typeof ReactFlowCanvas>
+type Story = StoryObj<typeof Canvas>
 
 export const Default: Story = {
   args: {
@@ -47,5 +47,5 @@ export const Default: Story = {
     showControls: true,
     showMiniMap: true,
   },
-  render: (args) => <ReactFlowCanvas {...args} />,
+  render: (args) => <Canvas {...args} />,
 }

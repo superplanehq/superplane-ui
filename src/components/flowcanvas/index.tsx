@@ -5,14 +5,14 @@ import "reactflow/dist/style.css"
 
 import { cn } from "@/lib/utils"
 
-type ReactFlowCanvasProps = React.ComponentProps<typeof ReactFlow> & {
+type CanvasProps = React.ComponentProps<typeof ReactFlow> & {
   containerClassName?: string
   containerStyle?: React.CSSProperties
   showControls?: boolean
   showMiniMap?: boolean
 }
 
-const ReactFlowCanvas: React.FC<ReactFlowCanvasProps> = ({
+const Canvas: React.FC<CanvasProps> = ({
   containerClassName,
   containerStyle,
   nodes,
@@ -41,4 +41,4 @@ const ReactFlowCanvas: React.FC<ReactFlowCanvasProps> = ({
   )
 }
 
-export { ReactFlowCanvas }
+export { Canvas }

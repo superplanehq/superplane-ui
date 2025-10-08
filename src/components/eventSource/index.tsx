@@ -11,6 +11,12 @@ import {
   CardTitle,
 } from "../card"
 import { Button } from "../button"
+import { Badge } from "../badge"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "../hoverCard"
 import { BookMarked, Funnel } from "lucide-react"
 
 export interface EventSourceProps {
@@ -78,10 +84,28 @@ export const EventSource: React.FC<EventSourceProps> = ({
                   superplane-ui
                 </a>
               </Button>
-              <Button variant="linkSubdued" className="justify-start">
-                <Funnel />
-                push
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button variant="linkSubdued" className="justify-start">
+                  <Funnel />
+                  push
+                </Button>
+                <HoverCard openDelay={150} closeDelay={150}>
+                  <HoverCardTrigger asChild>
+                    <Badge variant="default" className="cursor-pointer">
+                      +2 filters
+                    </Badge>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-56 space-y-2 text-xs">
+                    <p className="text-sm font-medium text-neutral-900">
+                      Active filters
+                    </p>
+                    <ul className="list-disc space-y-1 pl-5 text-muted-foreground">
+                      <li>branch = main</li>
+                      <li>status = success</li>
+                    </ul>
+                  </HoverCardContent>
+                </HoverCard>
+              </div>
             </CardDescription>
           </CardHeader>
           <CardContent

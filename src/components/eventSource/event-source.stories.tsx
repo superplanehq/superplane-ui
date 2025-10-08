@@ -10,7 +10,7 @@ const meta = {
     layout: "centered",
   },
   argTypes: {
-    sectionColor: {
+    color: {
       control: { type: "select" },
       options: EVENT_SOURCE_COLORS,
     },
@@ -24,7 +24,7 @@ const meta = {
   args: {
     title: "Special Event Source",
     content: "superplanehq/superplane",
-    sectionColor: "gray-100",
+    color: "gray",
     className: "",
     footerContent: "More details",
   },

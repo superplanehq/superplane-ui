@@ -22,6 +22,15 @@ import { BookMarked, Funnel } from "lucide-react"
 export interface EventSourceProps {
   title: string
   content: string
+  resource: {
+    label: string
+    href: string
+  }
+  eventType?: {
+    label: string
+    onClick?: () => void
+  }
+  filters?: string[]
   sectionTone?: string
   badgeTone?: string
   badgeImageSrc?: string
@@ -37,6 +46,9 @@ const DEFAULT_BADGE_TONE = "bg-gray-950"
 export const EventSource: React.FC<EventSourceProps> = ({
   title,
   content,
+  resource,
+  eventType,
+  filters,
   sectionTone = DEFAULT_SECTION_TONE,
   badgeTone = DEFAULT_BADGE_TONE,
   badgeImageSrc,
@@ -75,37 +87,48 @@ export const EventSource: React.FC<EventSourceProps> = ({
             <CardDescription className="pt-2 flex flex-col items-start gap-2 text-sm text-neutral-900">
               <Button variant="linkSubdued" className="justify-start" asChild>
                 <a
-                  href="https://github.com/superplanehq/superplane-ui"
+                  href={resource.href}
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-2"
                 >
                   <BookMarked />
-                  superplane-ui
+                  {resource.label}
                 </a>
               </Button>
-              <div className="flex items-center gap-2">
-                <Button variant="linkSubdued" className="justify-start">
-                  <Funnel />
-                  push
-                </Button>
-                <HoverCard openDelay={150} closeDelay={150}>
-                  <HoverCardTrigger asChild>
-                    <Badge variant="default" className="cursor-pointer">
-                      +2 filters
-                    </Badge>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-56 space-y-2 text-xs">
-                    <p className="text-sm font-medium text-neutral-900">
-                      Active filters
-                    </p>
-                    <ul className="list-disc space-y-1 pl-5 text-muted-foreground">
-                      <li>branch = main</li>
-                      <li>status = success</li>
-                    </ul>
-                  </HoverCardContent>
-                </HoverCard>
-              </div>
+              {(eventType || (filters && filters.length > 0)) && (
+                <div className="flex items-center gap-2">
+                  {eventType ? (
+                    <Button
+                      variant="linkSubdued"
+                      className="justify-start"
+                      onClick={eventType.onClick}
+                    >
+                      <Funnel />
+                      {eventType.label}
+                    </Button>
+                  ) : null}
+                  {filters && filters.length > 0 ? (
+                    <HoverCard openDelay={150} closeDelay={150}>
+                      <HoverCardTrigger asChild>
+                        <Badge variant="default" className="cursor-pointer">
+                          +{filters.length} filters
+                        </Badge>
+                      </HoverCardTrigger>
+                      <HoverCardContent className="w-56 space-y-2 text-xs">
+                        <p className="text-sm font-medium text-neutral-900">
+                          Active filters
+                        </p>
+                        <ul className="list-disc space-y-1 pl-5 text-muted-foreground">
+                          {filters.map((filter) => (
+                            <li key={filter}>{filter}</li>
+                          ))}
+                        </ul>
+                      </HoverCardContent>
+                    </HoverCard>
+                  ) : null}
+                </div>
+              )}
             </CardDescription>
           </CardHeader>
           <CardContent

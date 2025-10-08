@@ -86,6 +86,14 @@ const meta = {
     integration: "github" satisfies IntegrationKey,
     content: "",
     footerContent: "More details",
+    resource: {
+      label: "superplane-ui",
+      href: "https://github.com/superplanehq/superplane-ui",
+    },
+    eventType: {
+      label: "push",
+    },
+    filters: ["branch = main", "status = success"],
   },
   render: (args) => {
     const { integration, ...rest } = args as StoryArgs
@@ -99,6 +107,9 @@ const meta = {
         badgeTone={config.badgeTone}
         badgeLabel={config.label}
         badgeImageSrc={config.iconSrc}
+        resource={rest.resource}
+        eventType={rest.eventType}
+        filters={rest.filters}
       />
     )
   },

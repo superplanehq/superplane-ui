@@ -44,7 +44,7 @@ export const EventSource: React.FC<EventSourceProps> = ({
   return (
     <Card
       className={cn(
-        "grid h-72 w-[26rem] grid-rows-[2fr_1fr] overflow-hidden border-2 border-black bg-white p-0 shadow-none",
+        "grid h-[16rem] w-[26rem] grid-rows-[2fr_1fr] overflow-hidden border-2 border-black bg-white p-0 shadow-none",
         className,
       )}
     >

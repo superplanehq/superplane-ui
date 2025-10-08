@@ -10,11 +10,7 @@ const meta = {
     layout: "centered",
   },
   argTypes: {
-    headerColor: {
-      control: { type: "select" },
-      options: EVENT_SOURCE_COLORS,
-    },
-    contentColor: {
+    sectionColor: {
       control: { type: "select" },
       options: EVENT_SOURCE_COLORS,
     },
@@ -26,11 +22,10 @@ const meta = {
     },
   },
   args: {
-    title: "Product Launch",
-    content: "Stay up to date with the latest changes from your sources.",
-    headerColor: "amber-300",
-    contentColor: "sky-300",
-    className: "h-72 w-80",
+    title: "Special Event Source",
+    content: "superplanehq/superplane",
+    sectionColor: "gray-100",
+    className: "",
     footerContent: "More details",
   },
 } satisfies Meta<typeof EventSource>

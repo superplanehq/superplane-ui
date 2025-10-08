@@ -4,7 +4,7 @@ import { Checkbox } from '../checkbox';
 import { Label } from './index';
 
 const meta: Meta<typeof Label> = {
-  title: 'components/Label',
+  title: 'shadcn Primitives/Label',
   component: Label,
   tags: ['autodocs'],
   argTypes: {

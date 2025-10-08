@@ -5,7 +5,7 @@ import { Input } from './index';
 import { Label } from '../label';
 
 const meta: Meta<typeof Input> = {
-  title: 'components/Input',
+  title: 'shadcn Primitives/Input',
   component: Input,
   tags: ['autodocs'],
   argTypes: {

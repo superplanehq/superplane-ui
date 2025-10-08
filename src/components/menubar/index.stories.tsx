@@ -19,7 +19,7 @@ import {
 } from "./index"
 
 const meta = {
-  title: "components/Menubar",
+  title: "shadcn Primitives/Menubar",
   component: Menubar,
   parameters: {
     layout: "centered",

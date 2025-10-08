@@ -23,7 +23,7 @@ type NavigationMenuStoryArgs = React.ComponentProps<typeof NavigationMenu> & {
 }
 
 const meta = {
-  title: "components/NavigationMenu",
+  title: "shadcn Primitives/NavigationMenu",
   component: NavigationMenu,
   tags: ["autodocs"],
   parameters: {

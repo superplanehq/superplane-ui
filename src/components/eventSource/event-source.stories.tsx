@@ -89,6 +89,7 @@ const meta = {
     resource: {
       label: "superplane-ui",
       href: "https://github.com/superplanehq/superplane-ui",
+      icon: "marked-book",
     },
     eventType: {
       label: "push",

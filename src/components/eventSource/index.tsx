@@ -17,6 +17,8 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../hoverCard"
+import type { LucideIcon } from "lucide-react"
+import * as LucideIcons from "lucide-react"
 import { BookMarked, Funnel } from "lucide-react"
 
 export interface EventSourceProps {
@@ -25,6 +27,7 @@ export interface EventSourceProps {
   resource: {
     label: string
     href: string
+    icon?: string
   }
   eventType?: {
     label: string
@@ -57,6 +60,29 @@ export const EventSource: React.FC<EventSourceProps> = ({
   footerContent,
   className,
 }) => {
+  const ResourceIcon = React.useMemo(() => {
+    if (!resource.icon) {
+      return BookMarked
+    }
+
+    const pascalCase = resource.icon
+      .split("-")
+      .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+      .join("")
+
+    const candidate = (LucideIcons as Record<string, unknown>)[pascalCase]
+
+    if (
+      candidate &&
+      (typeof candidate === "function" ||
+        (typeof candidate === "object" && "render" in candidate))
+    ) {
+      return candidate as LucideIcon
+    }
+
+    return BookMarked
+  }, [resource.icon])
+
   return (
     <div className={cn("relative h-50 w-[26rem]", className)}>
       <div
@@ -92,7 +118,7 @@ export const EventSource: React.FC<EventSourceProps> = ({
                   rel="noreferrer"
                   className="flex items-center gap-2"
                 >
-                  <BookMarked />
+                  <ResourceIcon />
                   {resource.label}
                 </a>
               </Button>

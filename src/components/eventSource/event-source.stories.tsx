@@ -14,28 +14,24 @@ const INTEGRATIONS = {
     sectionTone: "bg-gray-100",
     badgeTone: "bg-gray-950",
     iconSrc: githubIcon,
-    description: "Connect GitHub events to trigger downstream workflows.",
   },
   kubernetes: {
     label: "Kubernetes",
     sectionTone: "bg-blue-100",
     badgeTone: "bg-blue-500",
     iconSrc: kubernetesIcon,
-    description: "Track cluster events and alert on deployment health.",
   },
   pagerduty: {
     label: "PagerDuty",
     sectionTone: "bg-green-100",
     badgeTone: "bg-green-500",
     iconSrc: pagerDutyIcon,
-    description: "Acknowledge incidents and automate on-call responses.",
   },
   datadog: {
     label: "DataDog",
     sectionTone: "bg-purple-100",
     badgeTone: "bg-purple-500",
     iconSrc: dataDogIcon,
-    description: "Ingest infrastructure metrics and anomaly alerts.",
   },
 } as const
 
@@ -80,6 +76,9 @@ const meta = {
     footerContent: {
       control: { disable: true },
     },
+    events: {
+      control: { type: "object" },
+    },
   },
   args: {
     title: "Special Event Source",
@@ -103,7 +102,7 @@ const meta = {
     return (
       <EventSource
         {...rest}
-        content={config.description}
+        content=""
         sectionTone={config.sectionTone}
         badgeTone={config.badgeTone}
         badgeLabel={config.label}
@@ -121,3 +120,29 @@ export default meta
 type Story = StoryObj<StoryArgs>
 
 export const Default: Story = {}
+
+export const WithEvents: Story = {
+  args: {
+    events: [
+      {
+        status: "success",
+        title: "Deployment completed",
+        timestamp: "2m ago",
+        badges: [{ label: "deploy" }, { label: "prod", variant: "secondary" }],
+        href: "#",
+      },
+      {
+        status: "warning",
+        title: "High latency detected",
+        timestamp: "5m ago",
+        badges: [{ label: "alert", variant: "destructive" }],
+      },
+      {
+        status: "error",
+        title: "Failed to sync feature flags",
+        timestamp: "10m ago",
+        badges: [{ label: "sync" }],
+      },
+    ],
+  },
+}

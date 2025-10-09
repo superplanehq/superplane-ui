@@ -12,6 +12,7 @@ import {
 } from "../card"
 import { Button } from "../button"
 import { Badge } from "../badge"
+import { EventItem, type EventItemProps } from "../eventItem"
 import {
   HoverCard,
   HoverCardContent,
@@ -34,6 +35,7 @@ export interface EventSourceProps {
     onClick?: () => void
   }
   filters?: string[]
+  events?: EventItemProps[]
   sectionTone?: string
   badgeTone?: string
   badgeImageSrc?: string
@@ -52,6 +54,7 @@ export const EventSource: React.FC<EventSourceProps> = ({
   resource,
   eventType,
   filters,
+  events,
   sectionTone = DEFAULT_SECTION_TONE,
   badgeTone = DEFAULT_BADGE_TONE,
   badgeImageSrc,
@@ -84,7 +87,7 @@ export const EventSource: React.FC<EventSourceProps> = ({
   }, [resource.icon])
 
   return (
-    <div className={cn("relative h-50 w-[26rem]", className)}>
+    <div className={cn("relative w-[26rem]", className)}>
       <div
         className={cn(
           "absolute left-0 top-0 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-white",
@@ -101,16 +104,15 @@ export const EventSource: React.FC<EventSourceProps> = ({
         ) : null}
         {badgeLabel ? <span className="sr-only">{badgeLabel}</span> : null}
       </div>
-      <Card className="grid h-full w-full grid-rows-[2fr_1fr] overflow-hidden border-[3px] border-black bg-white p-0 shadow-none">
-        <div className="grid h-full grid-rows-[auto_1fr]">
-          <CardHeader
-            className={cn(
-              "justify-center space-y-2 rounded-none pb-2 text-base text-neutral-900",
-              sectionTone,
-            )}
-          >
+      <Card className="flex h-full w-full flex-col overflow-hidden border-[3px] border-black bg-white p-0 shadow-none">
+        <CardHeader
+          className={cn(
+            "space-y-2 rounded-none pb-4 text-base text-neutral-900",
+            sectionTone,
+          )}
+        >
             <CardTitle>{title}</CardTitle>
-            <CardDescription className="pt-2 flex flex-col items-start gap-2 text-sm text-neutral-900">
+            <CardDescription className="py-2 flex flex-col items-start gap-2 text-sm text-neutral-900">
               <Button variant="linkSubdued" className="justify-start" asChild>
                 <a
                   href={resource.href}
@@ -156,18 +158,31 @@ export const EventSource: React.FC<EventSourceProps> = ({
                 </div>
               )}
             </CardDescription>
-          </CardHeader>
+        </CardHeader>
+        {content ? (
           <CardContent
             className={cn(
-              "h-full rounded-none p-6 text-sm leading-relaxed text-neutral-900",
+              "rounded-none p-6 text-sm leading-relaxed text-neutral-900",
               sectionTone,
             )}
           >
             {content}
           </CardContent>
-        </div>
-        <CardFooter className="items-center bg-white p-6 text-neutral-900">
-          {footerContent}
+        ) : null}
+        <CardFooter className="flex flex-col gap-3 bg-white p-6 text-neutral-900">
+          <div className="text-sm font-semibold">Latest Events</div>
+          {events && events.length > 0 ? (
+            <div className="flex w-full flex-col gap-2">
+              {events.map((event, index) => (
+                <EventItem
+                  key={`${event.title}-${index}`}
+                  {...event}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-xs text-muted-foreground">No events yet.</p>
+          )}
         </CardFooter>
       </Card>
     </div>

@@ -32,16 +32,14 @@ const meta = {
       control: { type: "text" },
     },
     badges: {
-      control: { disable: true },
+      control: { type: "object" },
     },
   },
   args: {
     status: "success",
     title: "Deployment completed",
     timestamp: "2m ago",
-    badges: [
-      { label: "push" },
-    ],
+    badges: [{ label: "push" }],
     href: "#",
   },
 } satisfies Meta<EventItemArgs>

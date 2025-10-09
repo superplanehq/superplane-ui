@@ -117,8 +117,13 @@ const EventItem: React.FC<EventItemProps> = ({
       <ItemMedia>
         <StatusIcon className={cn("size-6", statusConfig.text)} />
       </ItemMedia>
-      <ItemContent className="min-w-0">
-        <ItemTitle className="flex min-w-0 items-center gap-2 text-sm font-medium leading-snug">
+      <ItemContent className="min-w-0 justify-center">
+        <ItemTitle
+          className={cn(
+            "flex min-w-0 items-center gap-2 text-sm font-medium leading-snug",
+            statusConfig.text,
+          )}
+        >
           {badges?.length ? (
             <span className="flex shrink-0 gap-1">
               {badges.map(({ label, icon, variant, className: badgeClassName, ...badgeProps }) => {
@@ -142,8 +147,8 @@ const EventItem: React.FC<EventItemProps> = ({
         </ItemTitle>
       </ItemContent>
       {timestamp ? (
-        <ItemActions>
-          <span className="text-xs text-muted-foreground">{timestamp}</span>
+        <ItemActions className="self-center">
+          <span className="text-xs text-muted-foreground px-1">{timestamp}</span>
         </ItemActions>
       ) : null}
     </>
@@ -151,7 +156,7 @@ const EventItem: React.FC<EventItemProps> = ({
 
   if (href) {
     return (
-      <Item variant="outline" size="xs" className={baseClassName} asChild>
+      <Item size="xs" className={baseClassName} asChild>
         <a href={href} className="flex w-full items-stretch gap-2">
           {children}
         </a>
@@ -160,7 +165,7 @@ const EventItem: React.FC<EventItemProps> = ({
   }
 
   return (
-    <Item variant="outline" size="xs" className={baseClassName}>
+    <Item size="xs" className={baseClassName}>
       {children}
     </Item>
   )

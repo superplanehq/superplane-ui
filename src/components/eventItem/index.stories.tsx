@@ -37,7 +37,7 @@ const meta = {
   },
   args: {
     status: "success",
-    title: "Deployment completed",
+    title: "refactor: Add alert origin to alert details",
     timestamp: "2m ago",
     badges: [{ label: "push" }],
     href: "#",

@@ -15,22 +15,22 @@ import {
 
 const STATUS_STYLES = {
   success: {
-    background: "bg-emerald-50",
+    background: "bg-emerald-100",
     text: "text-emerald-600",
     icon: "check-circle-2",
   },
   warning: {
-    background: "bg-amber-50",
+    background: "bg-amber-100",
     text: "text-amber-600",
     icon: "alert-triangle",
   },
   error: {
-    background: "bg-rose-50",
+    background: "bg-rose-100",
     text: "text-rose-600",
     icon: "x-circle",
   },
   info: {
-    background: "bg-sky-50",
+    background: "bg-sky-100",
     text: "text-sky-600",
     icon: "info",
   },
@@ -106,24 +106,28 @@ const EventItem: React.FC<EventItemProps> = ({
   const statusConfig = STATUS_STYLES[status]
   const StatusIcon = resolveIcon(statusIcon, statusConfig.icon)
 
-  const baseClassName = cn("transition-colors", statusConfig.background, className)
+  const baseClassName = cn(
+    "w-full transition-colors",
+    statusConfig.background,
+    className,
+  )
 
   const children = (
     <>
       <ItemMedia>
         <StatusIcon className={cn("size-5", statusConfig.text)} />
       </ItemMedia>
-      <ItemContent>
-        <ItemTitle className="flex items-center gap-2 text-sm font-medium leading-snug">
+      <ItemContent className="min-w-0">
+        <ItemTitle className="flex min-w-0 items-center gap-2 text-sm font-medium leading-snug">
           {badges?.length ? (
-            <span className="flex gap-1">
+            <span className="flex shrink-0 gap-1">
               {badges.map(({ label, icon, variant, className: badgeClassName, ...badgeProps }) => {
                 const BadgeIcon = icon ? resolveIcon(icon) : null
 
                 return (
                   <Badge
                     key={label}
-                    variant={variant ?? "outline"}
+                    variant={variant ?? "default"}
                     className={cn("flex items-center gap-1", badgeClassName)}
                     {...badgeProps}
                   >
@@ -134,7 +138,7 @@ const EventItem: React.FC<EventItemProps> = ({
               })}
             </span>
           ) : null}
-          <span>{title}</span>
+          <span className="truncate">{title}</span>
         </ItemTitle>
       </ItemContent>
       {timestamp ? (
@@ -148,7 +152,7 @@ const EventItem: React.FC<EventItemProps> = ({
   if (href) {
     return (
       <Item variant="outline" size="sm" className={baseClassName} asChild>
-        <a href={href} className="flex items-stretch gap-2">
+        <a href={href} className="flex w-full items-stretch gap-2">
           {children}
         </a>
       </Item>

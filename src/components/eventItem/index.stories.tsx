@@ -40,8 +40,7 @@ const meta = {
     title: "Deployment completed",
     timestamp: "2m ago",
     badges: [
-      { label: "deploy" },
-      { label: "prod", variant: "secondary" },
+      { label: "push" },
     ],
     href: "#",
   },

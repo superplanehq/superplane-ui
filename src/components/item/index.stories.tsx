@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { ShieldAlert } from "lucide-react"
+import { BadgeCheck, ChevronRight, ShieldAlert } from "lucide-react"
 
 import { Button } from "../button"
 
@@ -73,4 +73,24 @@ export const Muted: Story = {
   args: {
     variant: "muted",
   },
+}
+
+export const Compact: Story = {
+  render: () => (
+    <div className="w-[360px]">
+      <Item variant="outline" size="sm" asChild>
+        <a href="#">
+          <ItemMedia>
+            <BadgeCheck className="size-5 text-emerald-500" />
+          </ItemMedia>
+          <ItemContent>
+            <ItemTitle>Your profile has been verified.</ItemTitle>
+          </ItemContent>
+          <ItemActions>
+            <ChevronRight className="size-4 text-muted-foreground" />
+          </ItemActions>
+        </a>
+      </Item>
+    </div>
+  ),
 }

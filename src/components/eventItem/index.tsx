@@ -107,7 +107,7 @@ const EventItem: React.FC<EventItemProps> = ({
   const StatusIcon = resolveIcon(statusIcon, statusConfig.icon)
 
   const baseClassName = cn(
-    "w-full transition-colors",
+    "w-full rounded-full transition-colors",
     statusConfig.background,
     className,
   )
@@ -115,7 +115,7 @@ const EventItem: React.FC<EventItemProps> = ({
   const children = (
     <>
       <ItemMedia>
-        <StatusIcon className={cn("size-5", statusConfig.text)} />
+        <StatusIcon className={cn("size-6", statusConfig.text)} />
       </ItemMedia>
       <ItemContent className="min-w-0">
         <ItemTitle className="flex min-w-0 items-center gap-2 text-sm font-medium leading-snug">
@@ -127,7 +127,7 @@ const EventItem: React.FC<EventItemProps> = ({
                 return (
                   <Badge
                     key={label}
-                    variant={variant ?? "default"}
+                    variant={variant ?? "secondary"}
                     className={cn("flex items-center gap-1", badgeClassName)}
                     {...badgeProps}
                   >
@@ -151,7 +151,7 @@ const EventItem: React.FC<EventItemProps> = ({
 
   if (href) {
     return (
-      <Item variant="outline" size="sm" className={baseClassName} asChild>
+      <Item variant="outline" size="xs" className={baseClassName} asChild>
         <a href={href} className="flex w-full items-stretch gap-2">
           {children}
         </a>
@@ -160,7 +160,7 @@ const EventItem: React.FC<EventItemProps> = ({
   }
 
   return (
-    <Item variant="outline" size="sm" className={baseClassName}>
+    <Item variant="outline" size="xs" className={baseClassName}>
       {children}
     </Item>
   )

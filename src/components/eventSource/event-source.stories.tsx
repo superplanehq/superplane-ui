@@ -84,7 +84,6 @@ const meta = {
     title: "Special Event Source",
     integration: "github" satisfies IntegrationKey,
     content: "",
-    footerContent: "More details",
     resource: {
       label: "superplane-ui",
       href: "https://github.com/superplanehq/superplane-ui",
@@ -94,6 +93,15 @@ const meta = {
       label: "push",
     },
     filters: ["branch = main", "status = success"],
+    events: [
+      {
+        status: "success",
+        title: "fix: open rejected events tab when the sidebar is already open",
+        timestamp: "2m ago",
+        badges: [{ label: "push" }],
+        href: "#",
+      },
+    ],
   },
   render: (args) => {
     const { integration, ...rest } = args as StoryArgs
@@ -121,28 +129,8 @@ type Story = StoryObj<StoryArgs>
 
 export const Default: Story = {}
 
-export const WithEvents: Story = {
+export const ZeroState: Story = {
   args: {
-    events: [
-      {
-        status: "success",
-        title: "Deployment completed",
-        timestamp: "2m ago",
-        badges: [{ label: "deploy" }, { label: "prod", variant: "secondary" }],
-        href: "#",
-      },
-      {
-        status: "warning",
-        title: "High latency detected",
-        timestamp: "5m ago",
-        badges: [{ label: "alert", variant: "destructive" }],
-      },
-      {
-        status: "error",
-        title: "Failed to sync feature flags",
-        timestamp: "10m ago",
-        badges: [{ label: "sync" }],
-      },
-    ],
+    events: [],
   },
 }

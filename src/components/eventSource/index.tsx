@@ -169,8 +169,10 @@ export const EventSource: React.FC<EventSourceProps> = ({
             {content}
           </CardContent>
         ) : null}
-        <CardFooter className="flex flex-col gap-3 bg-white p-6 text-neutral-900">
-          <div className="text-sm font-semibold">Latest Events</div>
+        <CardFooter className="flex flex-col items-start gap-3 bg-white p-6 pt-4 text-neutral-900">
+          <div className="text-sm font-semibold text-muted-foreground">
+            {events && events.length === 1 ? "Latest Event" : "Latest Events"}
+          </div>
           {events && events.length > 0 ? (
             <div className="flex w-full flex-col gap-2">
               {events.map((event, index) => (

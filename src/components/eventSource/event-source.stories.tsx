@@ -102,6 +102,7 @@ const meta = {
         href: "#",
       },
     ],
+    selected: true,
   },
   render: (args) => {
     const { integration, ...rest } = args as StoryArgs
@@ -132,5 +133,6 @@ export const Default: Story = {}
 export const ZeroState: Story = {
   args: {
     events: [],
+    selected: false,
   },
 }

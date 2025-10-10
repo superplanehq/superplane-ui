@@ -43,6 +43,7 @@ export interface EventSourceProps {
   badgeLabel?: string
   footerContent?: React.ReactNode
   className?: string
+  selected?: boolean
 }
 
 const DEFAULT_SECTION_TONE = "bg-gray-100"
@@ -62,6 +63,7 @@ export const EventSource: React.FC<EventSourceProps> = ({
   badgeLabel,
   footerContent,
   className,
+  selected = false,
 }) => {
   const ResourceIcon = React.useMemo(() => {
     if (!resource.icon) {
@@ -104,7 +106,14 @@ export const EventSource: React.FC<EventSourceProps> = ({
         ) : null}
         {badgeLabel ? <span className="sr-only">{badgeLabel}</span> : null}
       </div>
-      <Card className="flex h-full w-full flex-col overflow-hidden border-[3px] border-black bg-white p-0 shadow-none">
+      <Card
+        className={cn(
+          "flex h-full w-full flex-col overflow-hidden p-0",
+          selected
+            ? "border-[3px] border-black shadow-none"
+            : "border border-border shadow-sm",
+        )}
+      >
         <CardHeader
           className={cn(
             "space-y-2 rounded-none pb-4 text-base text-neutral-900",

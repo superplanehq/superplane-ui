@@ -117,10 +117,10 @@ const EventItem: React.FC<EventItemProps> = ({
       <ItemMedia>
         <StatusIcon className={cn("size-6", statusConfig.text)} />
       </ItemMedia>
-      <ItemContent className="min-w-0 overflow-hidden">
+      <ItemContent className="min-w-0 flex-1 overflow-hidden">
         <ItemTitle
           className={cn(
-            "flex min-w-0 items-center gap-2 text-sm font-medium leading-snug",
+            "flex min-w-0 items-center gap-2 text-sm font-medium leading-snug overflow-hidden w-full",
             statusConfig.text,
           )}
         >
@@ -143,7 +143,7 @@ const EventItem: React.FC<EventItemProps> = ({
               })}
             </span>
           ) : null}
-          <span className="truncate text-sm font-medium leading-snug">
+          <span className="min-w-0 flex-1 truncate text-sm font-medium leading-snug">
             {title}
           </span>
         </ItemTitle>
@@ -160,10 +160,10 @@ const EventItem: React.FC<EventItemProps> = ({
     return (
       <Item
         size="xs"
-        className={cn(baseClassName, "overflow-hidden")}
+        className={cn(baseClassName, "flex-nowrap overflow-hidden")}
         asChild
       >
-        <a href={href} className="flex w-full items-stretch gap-2 overflow-hidden">
+        <a href={href} className="flex w-full items-stretch gap-2 overflow-hidden min-w-0">
           {children}
         </a>
       </Item>
@@ -171,8 +171,7 @@ const EventItem: React.FC<EventItemProps> = ({
   }
 
   return (
-    <Item size="xs" className={cn(baseClassName, "overflow-hidden")}
-    >
+    <Item size="xs" className={cn(baseClassName, "flex-nowrap overflow-hidden min-w-0")}>
       {children}
     </Item>
   )

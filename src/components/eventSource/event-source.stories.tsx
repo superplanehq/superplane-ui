@@ -1,43 +1,143 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import type { ComponentProps } from "react"
 
-import githubIcon from "@/assets/integrations/github.svg"
-import kubernetesIcon from "@/assets/integrations/kubernetes.svg"
-import pagerDutyIcon from "@/assets/integrations/pagerduty.svg"
-import dataDogIcon from "@/assets/integrations/datadog.svg"
+import githubIcon from "@/assets/icons/integrations/github.svg"
+import kubernetesIcon from "@/assets/icons/integrations/kubernetes.svg"
+import pagerDutyIcon from "@/assets/icons/integrations/pagerduty.svg"
+import dataDogIcon from "@/assets/icons/integrations/datadog.svg"
+import scheduleIcon from "@/assets/icons/schedule.svg"
 
-import { EventSource } from "./index"
+import { EventSource, type EventSourceProps } from "./index"
 
-const INTEGRATIONS = {
+const TYPES = {
   github: {
     label: "GitHub",
     sectionTone: "bg-gray-100",
     badgeTone: "bg-gray-950",
     iconSrc: githubIcon,
+    title: "GitHub Source",
+    resource: {
+      label: "superplane-ui",
+      href: "https://github.com/superplanehq/superplane-ui",
+      icon: "github",
+    },
+    eventType: { label: "push" } as EventSourceProps["eventType"],
+    filters: ["branch = main", "status = success"] as string[],
+    events: [
+      {
+        status: "success",
+        title: "fix: open rejected events tab when the sidebar is already open",
+        timestamp: "2m ago",
+        badges: [{ label: "push" }],
+        href: "#",
+      },
+    ] satisfies EventSourceProps["events"],
   },
   kubernetes: {
     label: "Kubernetes",
     sectionTone: "bg-blue-100",
     badgeTone: "bg-blue-500",
     iconSrc: kubernetesIcon,
+    title: "Cluster Events",
+    resource: {
+      label: "prod-cluster",
+      href: "https://k8s.superplane.dev",
+      icon: "boxes",
+    },
+    eventType: { label: "deployment" } as EventSourceProps["eventType"],
+    filters: ["namespace = prod", "kind = deployment"] as string[],
+    events: [
+      {
+        status: "info",
+        title: "traffic-split applied to gateway",
+        timestamp: "Just now",
+        badges: [{ label: "mesh" }],
+      },
+      {
+        status: "warning",
+        title: "pod restart threshold exceeded",
+        timestamp: "3m ago",
+        badges: [{ label: "alert", variant: "destructive" }],
+      },
+    ] satisfies EventSourceProps["events"],
   },
   pagerduty: {
     label: "PagerDuty",
     sectionTone: "bg-green-100",
     badgeTone: "bg-green-500",
     iconSrc: pagerDutyIcon,
+    title: "PagerDuty Incidents",
+    resource: {
+      label: "On-call schedule",
+      href: "https://pagerduty.com",
+      icon: "alarm-clock",
+    },
+    eventType: { label: "incident" } as EventSourceProps["eventType"],
+    filters: ["urgency = high"] as string[],
+    events: [
+      {
+        status: "error",
+        title: "Payment gateway outage",
+        timestamp: "5m ago",
+        badges: [{ label: "sev1", variant: "destructive" }],
+      },
+    ] satisfies EventSourceProps["events"],
   },
   datadog: {
     label: "DataDog",
     sectionTone: "bg-purple-100",
     badgeTone: "bg-purple-500",
     iconSrc: dataDogIcon,
+    title: "DataDog Monitors",
+    resource: {
+      label: "APM metrics",
+      href: "https://app.datadoghq.com",
+      icon: "activity",
+    },
+    eventType: { label: "monitor" } as EventSourceProps["eventType"],
+    filters: ["service = api", "env = prod"] as string[],
+    events: [
+      {
+        status: "warning",
+        title: "p99 latency above threshold",
+        timestamp: "4m ago",
+        badges: [{ label: "apm" }],
+      },
+      {
+        status: "info",
+        title: "cache hit rate recovered",
+        timestamp: "8m ago",
+        badges: [{ label: "cache" }],
+      },
+    ] satisfies EventSourceProps["events"],
+  },
+  schedule: {
+    label: "Schedule",
+    sectionTone: "bg-gray-100",
+    badgeTone: "bg-gray-950",
+    iconSrc: scheduleIcon,
+    title: "Upcoming Schedules",
+    resource: {
+      label: "Release calendar",
+      href: "https://calendar.superplane.dev",
+      icon: "calendar-days",
+    },
+    eventType: { label: "release" } as EventSourceProps["eventType"],
+    filters: ["team = frontend"] as string[],
+    events: [
+      {
+        status: "info",
+        title: "Frontend release 2024.07",
+        timestamp: "Tomorrow",
+        badges: [{ label: "calendar" }],
+      },
+    ] satisfies EventSourceProps["events"],
   },
 } as const
 
-type IntegrationKey = keyof typeof INTEGRATIONS
+type TypeKey = keyof typeof TYPES
 type StoryArgs = ComponentProps<typeof EventSource> & {
-  integration: IntegrationKey
+  type: TypeKey
 }
 
 const meta = {
@@ -48,9 +148,9 @@ const meta = {
     layout: "centered",
   },
   argTypes: {
-    integration: {
+    type: {
       control: { type: "select" },
-      options: Object.keys(INTEGRATIONS),
+      options: Object.keys(TYPES),
     },
     content: {
       control: { disable: true },
@@ -81,44 +181,33 @@ const meta = {
     },
   },
   args: {
-    title: "Special Event Source",
-    integration: "github" satisfies IntegrationKey,
+    title: "GitHub Source",
+    type: "github" satisfies TypeKey,
     content: "",
-    resource: {
-      label: "superplane-ui",
-      href: "https://github.com/superplanehq/superplane-ui",
-      icon: "marked-book",
-    },
-    eventType: {
-      label: "push",
-    },
-    filters: ["branch = main", "status = success"],
-    events: [
-      {
-        status: "success",
-        title: "fix: open rejected events tab when the sidebar is already open",
-        timestamp: "2m ago",
-        badges: [{ label: "push" }],
-        href: "#",
-      },
-    ],
+    eventType: { ...TYPES.github.eventType } satisfies ComponentProps<
+      typeof EventSource
+    >["eventType"],
+    filters: [...TYPES.github.filters],
+    events: [...(TYPES.github.events ?? [])],
     selected: true,
   },
   render: (args) => {
-    const { integration, ...rest } = args as StoryArgs
-    const config = INTEGRATIONS[integration] ?? INTEGRATIONS.github
+    const { type, ...rest } = args as StoryArgs
+    const config = TYPES[type] ?? TYPES.github
 
     return (
       <EventSource
         {...rest}
+        title={config.title}
         content=""
         sectionTone={config.sectionTone}
         badgeTone={config.badgeTone}
         badgeLabel={config.label}
         badgeImageSrc={config.iconSrc}
-        resource={rest.resource}
-        eventType={rest.eventType}
-        filters={rest.filters}
+        resource={config.resource}
+        eventType={config.eventType}
+        filters={config.filters}
+        events={rest.events?.length ? rest.events : config.events}
       />
     )
   },
@@ -132,6 +221,7 @@ export const Default: Story = {}
 
 export const ZeroState: Story = {
   args: {
+    type: "github",
     events: [],
     selected: false,
   },

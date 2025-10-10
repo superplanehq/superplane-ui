@@ -19,7 +19,7 @@ const TYPES = {
     resource: {
       label: "superplane-ui",
       href: "https://github.com/superplanehq/superplane-ui",
-      icon: "github",
+      icon: "book-marked",
     },
     eventType: { label: "push" } as EventSourceProps["eventType"],
     filters: ["branch = main", "status = success"] as string[],
@@ -32,6 +32,7 @@ const TYPES = {
         href: "#",
       },
     ] satisfies EventSourceProps["events"],
+    meta: undefined,
   },
   kubernetes: {
     label: "Kubernetes",
@@ -44,11 +45,11 @@ const TYPES = {
       href: "https://k8s.superplane.dev",
       icon: "boxes",
     },
-    eventType: { label: "deployment" } as EventSourceProps["eventType"],
-    filters: ["namespace = prod", "kind = deployment"] as string[],
+    eventType: { label: "crashLoopBackOff" } as EventSourceProps["eventType"],
+    filters: ["namespace != stage", "kind == deployment"] as string[],
     events: [
       {
-        status: "info",
+        status: "success",
         title: "traffic-split applied to gateway",
         timestamp: "Just now",
         badges: [{ label: "mesh" }],
@@ -60,6 +61,7 @@ const TYPES = {
         badges: [{ label: "alert", variant: "destructive" }],
       },
     ] satisfies EventSourceProps["events"],
+    meta: undefined,
   },
   pagerduty: {
     label: "PagerDuty",
@@ -70,18 +72,19 @@ const TYPES = {
     resource: {
       label: "On-call schedule",
       href: "https://pagerduty.com",
-      icon: "alarm-clock",
+      icon: "clipboard-clock",
     },
     eventType: { label: "incident" } as EventSourceProps["eventType"],
     filters: ["urgency = high"] as string[],
     events: [
       {
-        status: "error",
-        title: "Payment gateway outage",
+        status: "warning",
+        title: "P1: Payment gateway outage",
         timestamp: "5m ago",
-        badges: [{ label: "sev1", variant: "destructive" }],
+        badges: [{ label: "alert", variant: "destructive" }],
       },
     ] satisfies EventSourceProps["events"],
+    meta: undefined,
   },
   datadog: {
     label: "DataDog",
@@ -94,8 +97,8 @@ const TYPES = {
       href: "https://app.datadoghq.com",
       icon: "activity",
     },
-    eventType: { label: "monitor" } as EventSourceProps["eventType"],
-    filters: ["service = api", "env = prod"] as string[],
+    eventType: undefined,
+    filters: [] as string[],
     events: [
       {
         status: "warning",
@@ -110,28 +113,36 @@ const TYPES = {
         badges: [{ label: "cache" }],
       },
     ] satisfies EventSourceProps["events"],
+    meta: undefined,
   },
   schedule: {
     label: "Schedule",
     sectionTone: "bg-gray-100",
     badgeTone: "bg-gray-950",
     iconSrc: scheduleIcon,
-    title: "Upcoming Schedules",
+    title: "Daily Build",
     resource: {
-      label: "Release calendar",
-      href: "https://calendar.superplane.dev",
-      icon: "calendar-days",
+      label: "Every Friday at 09:00 UTC",
+      href: "#",
+      icon: "calendar-clock",
     },
-    eventType: { label: "release" } as EventSourceProps["eventType"],
-    filters: ["team = frontend"] as string[],
+    eventType: undefined,
+    filters: [] as string[],
     events: [
       {
-        status: "info",
-        title: "Frontend release 2024.07",
-        timestamp: "Tomorrow",
-        badges: [{ label: "calendar" }],
+        status: "success",
+        title: "Aug 2, 2025, 09:00 UTC",
+        timestamp: "3m ago",
+        badges: [{ label: "schedule" }],
       },
     ] satisfies EventSourceProps["events"],
+    meta: [
+      {
+        icon: "clock-arrow-down",
+        label: "Next run",
+        value: "Aug 10, 2024, 09:00 UTC",
+      },
+    ] satisfies EventSourceProps["meta"],
   },
 } as const
 
@@ -154,39 +165,64 @@ const meta = {
     },
     content: {
       control: { disable: true },
+      table: { disable: true },
     },
     sectionTone: {
       control: { disable: true },
+      table: { disable: true },
     },
     badgeTone: {
       control: { disable: true },
+      table: { disable: true },
     },
     badgeImageSrc: {
       control: { disable: true },
+      table: { disable: true },
     },
     badgeImageAlt: {
       control: { disable: true },
+      table: { disable: true },
     },
     badgeLabel: {
       control: { disable: true },
+      table: { disable: true },
     },
     className: {
       control: { type: "text" },
+      table: { disable: true },
     },
     footerContent: {
       control: { disable: true },
+      table: { disable: true },
     },
     events: {
       control: { type: "object" },
+      table: { disable: true },
+    },
+    title: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    eventType: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    resource: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    filters: {
+      control: { disable: true },
+      table: { disable: true },
+    },
+    meta: {
+      control: { disable: true },
+      table: { disable: true },
     },
   },
   args: {
     title: "GitHub Source",
     type: "github" satisfies TypeKey,
-    content: "",
-    eventType: TYPES.github.eventType,
-    filters: [...TYPES.github.filters],
-    events: [...(TYPES.github.events ?? [])],
     selected: true,
   },
   render: (args) => {
@@ -205,6 +241,7 @@ const meta = {
         resource={config.resource}
         eventType={config.eventType}
         filters={config.filters}
+        meta={config.meta}
         events={rest.events?.length ? rest.events : config.events}
       />
     )

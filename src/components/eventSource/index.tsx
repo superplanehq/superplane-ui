@@ -36,6 +36,11 @@ export interface EventSourceProps {
   }
   filters?: string[]
   events?: EventItemProps[]
+  meta?: Array<{
+    icon?: string
+    label: string
+    value: React.ReactNode
+  }>
   sectionTone?: string
   badgeTone?: string
   badgeImageSrc?: string
@@ -56,21 +61,21 @@ export const EventSource: React.FC<EventSourceProps> = ({
   eventType,
   filters,
   events,
+  meta,
   sectionTone = DEFAULT_SECTION_TONE,
   badgeTone = DEFAULT_BADGE_TONE,
   badgeImageSrc,
   badgeImageAlt,
   badgeLabel,
-  footerContent,
   className,
   selected = false,
 }) => {
-  const ResourceIcon = React.useMemo(() => {
-    if (!resource.icon) {
+  const resolveIcon = React.useCallback((slug?: string): LucideIcon => {
+    if (!slug) {
       return BookMarked
     }
 
-    const pascalCase = resource.icon
+    const pascalCase = slug
       .split("-")
       .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
       .join("")
@@ -86,7 +91,15 @@ export const EventSource: React.FC<EventSourceProps> = ({
     }
 
     return BookMarked
-  }, [resource.icon])
+  }, [])
+
+  const ResourceIcon = React.useMemo(() => {
+    if (!resource.icon) {
+      return BookMarked
+    }
+
+    return resolveIcon(resource.icon)
+  }, [resource.icon, resolveIcon])
 
   return (
     <div className={cn("relative w-[26rem]", className)}>
@@ -120,13 +133,13 @@ export const EventSource: React.FC<EventSourceProps> = ({
             sectionTone,
           )}
         >
-            <CardTitle>{title}</CardTitle>
-            <CardDescription className="py-2 flex flex-col items-start gap-2 text-sm text-neutral-900">
-              <Button variant="linkSubdued" className="justify-start" asChild>
-                <a
-                  href={resource.href}
-                  target="_blank"
-                  rel="noreferrer"
+          <CardTitle>{title}</CardTitle>
+          <CardDescription className="py-2 flex flex-col items-start gap-2 text-sm text-neutral-900">
+            <Button variant="linkSubdued" className="justify-start" asChild>
+              <a
+                href={resource.href}
+                target="_blank"
+                rel="noreferrer"
                   className="flex items-center gap-2"
                 >
                   <ResourceIcon />
@@ -166,6 +179,26 @@ export const EventSource: React.FC<EventSourceProps> = ({
                   ) : null}
                 </div>
               )}
+              {meta && meta.length > 0 ? (
+                <div className="mt-2 flex w-full flex-col gap-2 text-sm">
+                  {meta.map(({ icon, label: metaLabel, value }, index) => {
+                    const MetaIcon = resolveIcon(icon)
+
+                    return (
+                      <div
+                        key={`${metaLabel}-${index}`}
+                        className="flex items-center gap-2 text-muted-foreground"
+                      >
+                        <MetaIcon className="size-4 text-muted-foreground" />
+                        <span className="text-sm text-muted-foreground font-medium">
+                          {metaLabel}
+                        </span>
+                        <span className="text-muted-foreground font-medium">{value}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              ) : null}
             </CardDescription>
         </CardHeader>
         {content ? (

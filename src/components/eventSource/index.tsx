@@ -49,6 +49,7 @@ export interface EventSourceProps {
   footerContent?: React.ReactNode
   className?: string
   selected?: boolean
+  collapsed?: boolean
 }
 
 const DEFAULT_SECTION_TONE = "bg-gray-100"
@@ -69,6 +70,7 @@ export const EventSource: React.FC<EventSourceProps> = ({
   badgeLabel,
   className,
   selected = false,
+  collapsed = false,
 }) => {
   const resolveIcon = React.useCallback((slug?: string): LucideIcon => {
     if (!slug) {
@@ -100,6 +102,46 @@ export const EventSource: React.FC<EventSourceProps> = ({
 
     return resolveIcon(resource.icon)
   }, [resource.icon, resolveIcon])
+
+  if (collapsed) {
+    return (
+      <div className={cn("flex w-fit flex-col items-center gap-3", className)}>
+        <div
+          className={cn(
+            "flex h-20 w-20 items-center justify-center rounded-full text-white",
+            badgeTone,
+            selected ? "border-[3px] border-black" : "border border-border",
+          )}
+        >
+          {badgeImageSrc ? (
+            <img
+              src={badgeImageSrc}
+              alt={badgeImageAlt ?? ""}
+              className="h-12 w-12 object-contain"
+              draggable={false}
+            />
+          ) : (
+            <ResourceIcon className="size-10" />
+          )}
+          {badgeLabel ? <span className="sr-only">{badgeLabel}</span> : null}
+        </div>
+        <CardTitle className="text-base font-semibold text-neutral-900">
+          {title}
+        </CardTitle>
+        <Button variant="linkSubdued" className="justify-center" asChild>
+          <a
+            href={resource.href}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2"
+          >
+            <ResourceIcon className="size-4" />
+            {resource.label}
+          </a>
+        </Button>
+      </div>
+    )
+  }
 
   return (
     <div className={cn("relative w-[26rem]", className)}>
@@ -134,7 +176,7 @@ export const EventSource: React.FC<EventSourceProps> = ({
           )}
         >
           <CardTitle>{title}</CardTitle>
-          <CardDescription className="py-2 flex flex-col items-start gap-2 text-sm text-neutral-900">
+          <CardDescription className="flex flex-col items-start gap-2 py-2 text-sm text-neutral-900">
             <Button variant="linkSubdued" className="justify-start" asChild>
               <a
                 href={resource.href}

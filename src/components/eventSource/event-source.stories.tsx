@@ -219,11 +219,18 @@ const meta = {
       control: { disable: true },
       table: { disable: true },
     },
+    collapsed: {
+      control: { type: "boolean" },
+    },
   },
   args: {
     title: "GitHub Source",
     type: "github" satisfies TypeKey,
+    events: [...(TYPES.github.events ?? [])],
+    filters: [...TYPES.github.filters],
+    eventType: TYPES.github.eventType,
     selected: true,
+    collapsed: false,
   },
   render: (args) => {
     const { type, ...rest } = args as StoryArgs
@@ -258,6 +265,14 @@ export const ZeroState: Story = {
   args: {
     type: "github",
     events: [],
+    selected: false,
+  },
+}
+
+export const Collapsed: Story = {
+  args: {
+    type: "schedule",
+    collapsed: true,
     selected: false,
   },
 }

@@ -232,17 +232,17 @@ const meta = {
     return (
       <EventSource
         {...rest}
-        title={config.title}
+        title={rest.title ?? config.title}
         content=""
         sectionTone={config.sectionTone}
         badgeTone={config.badgeTone}
         badgeLabel={config.label}
         badgeImageSrc={config.iconSrc}
-        resource={config.resource}
-        eventType={config.eventType}
-        filters={config.filters}
-        meta={config.meta}
-        events={rest.events?.length ? rest.events : config.events}
+        resource={rest.resource ?? config.resource}
+        eventType={rest.eventType ?? config.eventType}
+        filters={rest.filters ?? config.filters}
+        meta={rest.meta ?? config.meta}
+        events={rest.events ?? config.events}
       />
     )
   },

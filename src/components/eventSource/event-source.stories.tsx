@@ -224,11 +224,7 @@ const meta = {
     },
   },
   args: {
-    title: "GitHub Source",
     type: "github" satisfies TypeKey,
-    events: [...(TYPES.github.events ?? [])],
-    filters: [...TYPES.github.filters],
-    eventType: TYPES.github.eventType,
     selected: true,
     collapsed: false,
   },
@@ -271,7 +267,7 @@ export const ZeroState: Story = {
 
 export const Collapsed: Story = {
   args: {
-    type: "schedule",
+    type: "github",
     collapsed: true,
     selected: false,
   },

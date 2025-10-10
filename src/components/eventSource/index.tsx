@@ -105,7 +105,7 @@ export const EventSource: React.FC<EventSourceProps> = ({
 
   if (collapsed) {
     return (
-      <div className={cn("flex w-fit flex-col items-center gap-3", className)}>
+      <div className={cn("flex w-fit flex-col items-center", className)}>
         <div
           className={cn(
             "flex h-20 w-20 items-center justify-center rounded-full text-white",
@@ -125,15 +125,19 @@ export const EventSource: React.FC<EventSourceProps> = ({
           )}
           {badgeLabel ? <span className="sr-only">{badgeLabel}</span> : null}
         </div>
-        <CardTitle className="text-base font-semibold text-neutral-900">
+        <CardTitle className="text-base font-semibold text-neutral-900 pt-1">
           {title}
         </CardTitle>
-        <Button variant="linkSubdued" className="justify-center" asChild>
+        <Button
+          variant="linkSubdued"
+          className="justify-center text-sm"
+          asChild
+        >
           <a
             href={resource.href}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2"
+            className="flex items-center"
           >
             <ResourceIcon className="size-4" />
             {resource.label}

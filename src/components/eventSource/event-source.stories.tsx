@@ -184,9 +184,7 @@ const meta = {
     title: "GitHub Source",
     type: "github" satisfies TypeKey,
     content: "",
-    eventType: { ...TYPES.github.eventType } satisfies ComponentProps<
-      typeof EventSource
-    >["eventType"],
+    eventType: TYPES.github.eventType,
     filters: [...TYPES.github.filters],
     events: [...(TYPES.github.events ?? [])],
     selected: true,

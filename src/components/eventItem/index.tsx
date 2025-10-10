@@ -149,7 +149,7 @@ const EventItem: React.FC<EventItemProps> = ({
         </ItemTitle>
       </ItemContent>
       {timestamp ? (
-        <ItemActions className="shrink-0 self-center pl-1">
+        <ItemActions className="shrink-0 self-center pl-1 pr-2">
           <span className="text-xs text-muted-foreground">{timestamp}</span>
         </ItemActions>
       ) : null}

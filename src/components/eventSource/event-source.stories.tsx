@@ -122,7 +122,7 @@ const TYPES = {
     iconSrc: scheduleIcon,
     title: "Daily Build",
     resource: {
-      label: "Every Friday at 09:00 UTC",
+      label: "Every Friday at 09:15 am ET",
       href: "#",
       icon: "calendar-clock",
     },
@@ -131,7 +131,7 @@ const TYPES = {
     events: [
       {
         status: "success",
-        title: "Aug 2, 2025, 09:00 UTC",
+        title: "Aug 2, 2025, 09:15 am ET",
         timestamp: "3m ago",
         badges: [{ label: "schedule" }],
       },
@@ -139,8 +139,8 @@ const TYPES = {
     meta: [
       {
         icon: "clock-arrow-down",
-        label: "Next run",
-        value: "Aug 10, 2024, 09:00 UTC",
+        label: "Next run:",
+        value: "Aug 10, 2024, 09:15am ET",
       },
     ] satisfies EventSourceProps["meta"],
   },
